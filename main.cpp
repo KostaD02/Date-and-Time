@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include <cstdlib>
 
 using namespace std;
@@ -21,13 +20,22 @@ using namespace std;
 #define Nov 30
 #define Dec 31
 
-struct myDate{
-	unsigned int day;
-	unsigned int month;
-	unsigned int year;
+class myDate{
+	private:
+		unsigned int day;
+		unsigned int month;
+		unsigned int year;
+	public:
 	myDate(	unsigned int Day=1,unsigned int Month=1,unsigned int Year=1 ){
-		set(Day,Month,Year);		
+		set(Day,Month,Year);
 	}
+	unsigned int getParams(unsigned int x=0){
+		unsigned int temp=1;
+		if(x==1) return day;
+		if(x==2) return month;
+		if(x==3) return year;
+		return temp;
+	} 
 	string displayStr(char DEL='.'){
 		char buffer[4];
 		string temp="";
@@ -87,9 +95,9 @@ struct myDate{
 };
 
 myDate nextDay(myDate currentDay){
-	unsigned int Day=currentDay.day;
-	unsigned int Month=currentDay.month;
-	unsigned int Year=currentDay.year;
+	unsigned int Day=currentDay.getParams(1);
+	unsigned int Month=currentDay.getParams(2);
+	unsigned int Year=currentDay.getParams(3);
 	if(Month==2){
 		if(currentDay.checkYear() && Day>=29) return myDate(1,Month+1,Year);
 		if(!currentDay.checkYear() && Day>=28) return myDate(1,Month+1,Year);
