@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+
 using namespace std;
 
 #define MinYear 1
@@ -20,11 +21,39 @@ using namespace std;
 #define Nov 30
 #define Dec 31
 
-struct myDate{
+unsigned int currentDateTime(unsigned int choose=0){
+	time_t now = time(0);
+	tm *ltm = localtime(&now);
+	if(choose == 0){
+		cout<<" Current Time  => \t"<<ltm->tm_mday<<"."<<1 + ltm->tm_mon<<"."<<1900 + ltm->tm_year<<" \t "<<ltm->tm_hour<<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<endl;
+		return 1;
+	}													
+	if(choose == 1){
+		return ltm->tm_mday;
+	}
+	if(choose == 2){
+		return 1 + ltm->tm_mon;
+	}
+	if(choose == 3){
+		return 1900 + ltm->tm_year;
+	}
+	if(choose == 4){
+		return ltm->tm_sec;
+	}
+	if(choose == 5){
+		return ltm->tm_min;
+	}
+	if(choose == 6){
+		return ltm->tm_hour;
+	}
+}
+
+class myDate{
 	private:
 		unsigned int day;
 		unsigned int month;
 		unsigned int year;
+		unsigned int currentYear;
 	public:
 	myDate(	unsigned int Day=1,unsigned int Month=1,unsigned int Year=1 ){
 		set(Day,Month,Year);
@@ -60,7 +89,7 @@ struct myDate{
 	}
 	void setYear(unsigned int Year){
 		if(Year<1) Year=1;
-		if(Year>2021) Year=2021;
+		if(Year>currentDateTime(3)+1) Year=currentDateTime(3);
 		year=Year;
 	}
 	bool checkYear(){
@@ -115,7 +144,59 @@ myDate nextDay(myDate currentDay){
 	if(Month==12 && Day>=Dec) return myDate(1,1,Year+1);
 	return myDate(Day+1,Month,Year);
 }
-struct myTime{
+myDate difDayDefault(myDate currentDayDif){
+	unsigned int Day=currentDayDif.getParams(1);
+	unsigned int Month=currentDayDif.getParams(2);
+	unsigned int Year=currentDayDif.getParams(3);
+	unsigned int currentDay=currentDateTime(1);
+	unsigned int currentMonth=currentDateTime(2);
+	unsigned int currentYear=currentDateTime(3);
+	unsigned int difDay=currentDay-Day;
+	unsigned int difMonth=currentMonth-Month;
+	unsigned int difYear=currentYear-Year;
+	return myDate(difDay,difMonth,difYear);
+}
+myDate difDayNew(myDate currentDayDif){
+	cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
+	cout<<" Choose option was one :"<<endl<<endl<<" Difference between current day and new input day"<<endl<<endl;
+	unsigned int Day=0;cout<<" Day= ";cin>>Day;
+	unsigned int Month=0;cout<<" Month= ";cin>>Month;
+	unsigned int Year=0;cout<<" Year= ";cin>>Year;
+	unsigned int currentDay=currentDateTime(1);
+	unsigned int currentMonth=currentDateTime(2);
+	unsigned int currentYear=currentDateTime(3);
+	unsigned int difDay=currentDay-Day;
+	unsigned int difMonth=currentMonth-Month;
+	unsigned int difYear=currentYear-Year;
+	return myDate(difDay,difMonth,difYear);
+}
+myDate sumDayDefault(myDate currentDaySum){
+	unsigned int Day=currentDaySum.getParams(1);
+	unsigned int Month=currentDaySum.getParams(2);
+	unsigned int Year=currentDaySum.getParams(3);
+	unsigned int currentDay=currentDateTime(1);
+	unsigned int currentMonth=currentDateTime(2);
+	unsigned int currentYear=currentDateTime(3);
+	unsigned int difDay=currentDay+Day;
+	unsigned int difMonth=currentMonth+Month;
+	unsigned int difYear=currentYear+Year;
+	return myDate(difDay,difMonth,difYear);
+}
+myDate sumDayNew(myDate currentDayDif){
+	cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
+	cout<<" Choose option was one :"<<endl<<endl<<" Difference between current day and new input day"<<endl<<endl;
+	unsigned int Day=0;cout<<" Day= ";cin>>Day;
+	unsigned int Month=0;cout<<" Month= ";cin>>Month;
+	unsigned int Year=0;cout<<" Year= ";cin>>Year;
+	unsigned int currentDay=currentDateTime(1);
+	unsigned int currentMonth=currentDateTime(2);
+	unsigned int currentYear=currentDateTime(3);
+	unsigned int difDay=currentDay+Day;
+	unsigned int difMonth=currentMonth+Month;
+	unsigned int difYear=currentYear+Year;
+	return myDate(difDay,difMonth,difYear);
+}
+class myTime{
 	private:
 		unsigned int second;
 		unsigned int minute;
@@ -174,13 +255,58 @@ struct myTime{
 		return temp;
 	}
 };
-
-void currentDateTime(){
-	time_t now = time(0);
-	tm *ltm = localtime(&now); 																	
-	cout<<" Current Time  => \t"<<ltm->tm_mday<<"."<<1 + ltm->tm_mon<<"."<<1900 + ltm->tm_year<<" \t "<<ltm->tm_hour<<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<endl;
+myTime difTimeDefault(myTime currentTimeDif){
+	unsigned int Seconds=currentTimeDif.getParams(1);
+	unsigned int Minute=currentTimeDif.getParams(2);
+	unsigned int Hours=currentTimeDif.getParams(3);
+	unsigned int currentSeconds=currentDateTime(4);
+	unsigned int currentMinute=currentDateTime(5);
+	unsigned int currentHours=currentDateTime(6);
+	unsigned int difSeconds=currentSeconds-Seconds;
+	unsigned int difMinute=currentMinute-Minute;
+	unsigned int difHours=currentHours-Hours;
+	return myTime(difSeconds,difMinute,difHours);
 }
-
+myTime difTimeNew(myTime currentTimeDif){
+	cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
+	cout<<" Choose option was one :"<<endl<<endl<<" Difference between current time and new input time"<<endl<<endl;
+	unsigned int Hour=0;cout<<" Hour= ";cin>>Hour;
+	unsigned int Minute=0;cout<<" Minute= ";cin>>Minute;
+	unsigned int Second=0;cout<<" Second= ";cin>>Second;
+	unsigned int currentSeconds=currentDateTime(4);
+	unsigned int currentMinute=currentDateTime(5);
+	unsigned int currentHours=currentDateTime(6);
+	unsigned int difSeconds=currentSeconds-Second;
+	unsigned int difMinute=currentMinute-Minute;
+	unsigned int difHours=currentHours-Hour;
+	return myTime(difSeconds,difMinute,difHours);
+}
+myTime sumTimeDefault(myTime currentTimeSum){
+	unsigned int Seconds=currentTimeSum.getParams(1);
+	unsigned int Minute=currentTimeSum.getParams(2);
+	unsigned int Hours=currentTimeSum.getParams(3);
+	unsigned int currentSeconds=currentDateTime(4);
+	unsigned int currentMinute=currentDateTime(5);
+	unsigned int currentHours=currentDateTime(6);
+	unsigned int difSeconds=currentSeconds+Seconds;
+	unsigned int difMinute=currentMinute+Minute;
+	unsigned int difHours=currentHours+Hours;
+	return myTime(difSeconds,difMinute,difHours);
+}
+myTime sumTimeNew(myTime currentTimeSum){
+	cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
+	cout<<" Choose option was one :"<<endl<<endl<<" Sum between current time and new input time"<<endl<<endl;
+	unsigned int Hour=0;cout<<" Hour= ";cin>>Hour;
+	unsigned int Minute=0;cout<<" Minute= ";cin>>Minute;
+	unsigned int Second=0;cout<<" Second= ";cin>>Second;
+	unsigned int currentSeconds=currentDateTime(4);
+	unsigned int currentMinute=currentDateTime(5);
+	unsigned int currentHours=currentDateTime(6);
+	unsigned int difSeconds=currentSeconds+Second;
+	unsigned int difMinute=currentMinute+Minute;
+	unsigned int difHours=currentHours+Hour;
+	return myTime(difSeconds,difMinute,difHours);
+}
 unsigned int chooseOption(){
 	cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
 	cout<<"    Choose option( write only number! ) : "<<endl<<endl;
@@ -207,7 +333,7 @@ unsigned int chooseOption(){
 	cout<<" (21) Renew current input date and time"<<endl;
 	cout<<" (22) Code author"<<endl;
 	cout<<" (23) Close program"<<endl<<endl;
-	unsigned int option=0;cout<<"Choosen option =";cin>>option;
+	unsigned int option=0;cout<<"Choosen option = ";cin>>option;
 	while(option<1 || option>23){
 		cout<<"Number must be 1-23 ! Choose option =";cin>>option;
 	}
@@ -215,22 +341,116 @@ unsigned int chooseOption(){
 	return option;
 }
 
+void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
+	switch(option){
+		default:
+			system("cls");
+			cout<<"Unexpected error , Option must be between 1 and 23"<<endl;
+			break;
+		case 1:{
+			system("cls");
+			myDate DifDayDefault=difDayDefault(myDateStruct);
+			cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
+			cout<<" Choose option was one :"<<endl<<endl<<" Difference between current day and current input day"<<endl<<endl;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
+	        cout<<endl<<" Answer : "<<DifDayDefault.displayStr()<<endl;
+			cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+			break;
+		}
+		case 2:{
+			system("cls");
+			myDate DifDayNew=difDayNew(myDateStruct);
+			cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
+	        cout<<endl<<" Answer : "<<DifDayNew.displayStr()<<endl;
+			cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+			break;
+		}
+		case 3:{
+			system("cls");
+			myTime DifDayDefault=difTimeDefault(myTimeStruct);
+			cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
+			cout<<" Choose option was one :"<<endl<<endl<<" Difference between current time and current input time"<<endl<<endl;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
+	        cout<<endl<<" Answer : "<<DifDayDefault.displayStr()<<endl;
+			cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+			break;
+		}
+		case 4:{
+			system("cls");
+			myTime DifDayDefault=difTimeNew(myTimeStruct);
+			cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
+	        cout<<endl<<" Answer : "<<DifDayDefault.displayStr()<<endl;
+			cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+			break;
+		}
+		case 5:{
+			system("cls");
+			myDate SumDayDefault=sumDayDefault(myDateStruct);
+			cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
+			cout<<" Choose option was one :"<<endl<<endl<<" Sum between current day and current input day"<<endl<<endl;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
+	        cout<<endl<<" Answer : "<<SumDayDefault.displayStr()<<endl;
+			cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+			break;
+		}
+		case 6:{
+			system("cls");
+			myDate SumDayNew=sumDayNew(myDateStruct);
+			cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
+			cout<<" Choose option was one :"<<endl<<endl<<" Sum between current day and new input day"<<endl<<endl;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
+	        cout<<endl<<" Answer : "<<SumDayNew.displayStr()<<endl;
+			cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+			break;
+		}
+		case 7:{
+			system("cls");
+			myTime SumTimeDefault=sumTimeDefault(myTimeStruct);
+			cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
+			cout<<" Choose option was one :"<<endl<<endl<<" Sum between current time and current input time"<<endl<<endl;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
+	        cout<<endl<<" Answer : "<<SumTimeDefault.displayStr()<<endl;
+			cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+			break;
+		}
+		case 8:{
+			system("cls");
+			myTime SumTimeNew=sumTimeNew(myTimeStruct);
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
+	        cout<<endl<<" Answer : "<<SumTimeNew.displayStr()<<endl;
+			cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+			break;
+		}
+	}
+}
+
 int main(int argc, char** argv) {
 	cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
 	cout<<"    Input time | Format Hours:Minute:Second"<<endl<<endl;
-	unsigned int currentHour=0;cout<<" Hour=";cin>>currentHour;
-	unsigned int currentMinute=0;cout<<" Minute=";cin>>currentMinute;
-	unsigned int currentSecond=0;cout<<" Second=";cin>>currentSecond;
+	unsigned int currentHour=0;cout<<" Hour= ";cin>>currentHour;
+	unsigned int currentMinute=0;cout<<" Minute= ";cin>>currentMinute;
+	unsigned int currentSecond=0;cout<<" Second= ";cin>>currentSecond;
 	cout<<endl<<"    Input date | Format Day.Month.Hours"<<endl<<endl;
-	unsigned int currentDay=0;cout<<" Day=";cin>>currentDay;
-	unsigned int currentMonth=0;cout<<" Month=";cin>>currentMonth;
-	unsigned int currentYear=0;cout<<" Year=";cin>>currentYear;
+	unsigned int currentDay=0;cout<<" Day= ";cin>>currentDay;
+	unsigned int currentMonth=0;cout<<" Month= ";cin>>currentMonth;
+	unsigned int currentYear=0;cout<<" Year= ";cin>>currentYear;
 	cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
 	myTime myTimeStruct=myTime(currentSecond,currentMinute,currentHour);
 	myDate myDateStruct=myDate(currentDay,currentMonth,currentYear);
+	currentDateTime();
 	cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
-	      /*Current Time :*/currentDateTime();
 	unsigned int choosenOption = chooseOption();
+	displayOption(choosenOption,myDateStruct,myTimeStruct);
 	system("pause");
 	return 0;
 }
