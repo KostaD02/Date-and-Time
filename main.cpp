@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-
+#include <math.h>  
 using namespace std;
 
 #define MinYear 1
@@ -25,7 +25,18 @@ unsigned int currentDateTime(unsigned int choose=0){
 	time_t now = time(0);
 	tm *ltm = localtime(&now);
 	if(choose == 0){
-		cout<<" Current Time  => \t"<<ltm->tm_mday<<"."<<1 + ltm->tm_mon<<"."<<1900 + ltm->tm_year<<" \t "<<ltm->tm_hour<<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<endl;
+		cout<<" Current Time  => \t";
+		if(ltm->tm_mday<10) cout<<"0"<<ltm->tm_mday<<".";
+		else cout<<ltm->tm_mday<<".";
+		if(1 + ltm->tm_mon<10) cout<<"0"<<1 + ltm->tm_mon<<".";
+		else cout<<1 + ltm->tm_mon<<".";  
+		cout<<1900 + ltm->tm_year<<" \t "; 
+		if(ltm->tm_hour<10) cout<<"0"<<ltm->tm_hour<<":";
+		else cout<<ltm->tm_hour<<":";
+		if(ltm->tm_min<10) cout<<"0"<<ltm->tm_min<<":"<<ltm->tm_sec<<endl;
+		else cout<<ltm->tm_min<<":";
+		if(ltm->tm_sec<10) cout<<"0"<<ltm->tm_sec<<endl;
+		else cout<<ltm->tm_sec<<endl;
 		return 1;
 	}													
 	if(choose == 1){
@@ -341,6 +352,40 @@ unsigned int chooseOption(){
 	return option;
 }
 
+string week(myDate myDateStruct,unsigned int choose=0){ //Zeller’s Algorithm
+	if(choose == 1){
+		cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
+		cout<<" Choose option was one :"<<endl<<endl<<" Difference between current day and current input day"<<endl<<endl;
+	}
+	unsigned int Day=0;
+	unsigned int Month=0;
+	unsigned int Year=0;
+	if(choose == 0){
+		Day=myDateStruct.getParams(1);
+		Month=myDateStruct.getParams(2);
+		Year=myDateStruct.getParams(3);
+	}else if(choose == 1){
+	cout<<" Day= ";cin>>Day;
+	cout<<" Month= ";cin>>Month;
+	cout<<" Year= ";cin>>Year;
+	}else{
+		return "Unexpected error ,choose was given wrong";
+	}
+	string days[7]={"Saturday","Sunday","Monday","Tuesday", "Wednesday","Thursday","Friday"};
+	unsigned int Mon=0;
+	if(Month >2){
+		Mon=Month;//for march to december month code is same as month
+	}else{
+		Mon=(12+Month);//for Jan and Feb, month code will be 13 and 14
+		Year--;//decrease year for month Jan and Feb
+	}
+	int y=Year%100;//last two digit
+	int c=Year/100;//first two digit
+	int w=(Day+floor((13*(Mon+1))/5)+y+floor(y/4)+floor(c/4)+(5*c));
+	w=w%7;
+	return days[w];
+}
+
 void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 	switch(option){
 		default:
@@ -350,8 +395,6 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 		case 1:{
 			system("cls");
 			myDate DifDayDefault=difDayDefault(myDateStruct);
-			cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
-			cout<<" Choose option was one :"<<endl<<endl<<" Difference between current day and current input day"<<endl<<endl;
 			currentDateTime();
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	        cout<<endl<<" Answer : "<<DifDayDefault.displayStr()<<endl;
@@ -428,6 +471,26 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			currentDateTime();
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	        cout<<endl<<" Answer : "<<SumTimeNew.displayStr()<<endl;
+			cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+			break;
+		}
+		case 9:{
+			system("cls");
+			cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
+			cout<<" Choose option was one :"<<endl<<endl<<" Get day week for input date"<<endl<<endl;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
+			cout<<endl<<" Day of week will be => "<<week(myDateStruct)<<endl;
+			cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+			break;
+		}
+		case 10:{
+			system("cls");
+			cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
+			cout<<" Choose option was one :"<<endl<<endl<<" Get day week for new input date"<<endl<<endl;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
+			cout<<endl<<" Day of week will be => "<<week(myDateStruct,1)<<endl;
 			cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
 			break;
 		}
