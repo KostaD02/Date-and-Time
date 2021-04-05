@@ -1,7 +1,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <math.h>  
+#include <math.h>
+  
 using namespace std;
 
 #define MinYear 1
