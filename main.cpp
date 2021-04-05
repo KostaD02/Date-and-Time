@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-
+#include <ctime>
 using namespace std;
 
 #define MinYear 1
@@ -174,25 +174,63 @@ struct myTime{
 		return temp;
 	}
 };
-myTime nextHour(myTime currentTime){
-	unsigned int Seconds=currentTime.getParams(1);
-	unsigned int Minutes=currentTime.getParams(2);
-	unsigned int Hours=currentTime.getParams(3);
-}
-int main(int argc, char** argv) {
-	unsigned int currentDay=0;cout<<"Day=";cin>>currentDay;
-	unsigned int currentMonth=0;cout<<"Month=";cin>>currentMonth;
-	unsigned int currentYear=0;cout<<"Year=";cin>>currentYear;
-	myDate myDateStruct=myDate(currentDay,currentMonth,currentYear);
-	cout<<"DAY.MONTH.YEAR"<<endl<<myDateStruct.displayStr()<<endl;
-	myDate NextDay=nextDay(myDateStruct);
-	cout<<NextDay.displayStr()<<endl;
-	unsigned int currentHour=0;cout<<"Hour=";cin>>currentHour;
-	unsigned int currentMinute=0;cout<<"Minute=";cin>>currentMinute;
-	unsigned int currentSecond=0;cout<<"Second=";cin>>currentSecond;
-	myTime myTimeStruct=myTime(currentSecond,currentMinute,currentHour);
-	cout<<"HOURS:MINUTES:SECONDS"<<endl<<myTimeStruct.displayStr()<<endl;
 
-	//cout<<NextDay.day<<"."<<NextDay.month<<"."<<NextDay.year<<endl;
+void currentDateTime(){
+	time_t now = time(0);
+	tm *ltm = localtime(&now); 																	
+	cout<<" Current Time  => \t"<<ltm->tm_mday<<"."<<1 + ltm->tm_mon<<"."<<1900 + ltm->tm_year<<" \t "<<ltm->tm_hour<<":"<<ltm->tm_min<<":"<<ltm->tm_sec<<endl;
+}
+
+unsigned int chooseOption(){
+	cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+	cout<<"    Choose option( write only number! ) : "<<endl<<endl;
+	cout<<" (1)  Difference between current day and current input day"<<endl;
+	cout<<" (2)  Difference between current day and new input day"<<endl;
+	cout<<" (3)  Difference between current time and current input time"<<endl;
+	cout<<" (4)  Difference between current time and new input time"<<endl;
+	cout<<" (5)  Sum between current day and current input day"<<endl;
+	cout<<" (6)  Sum between current day and new input day"<<endl;
+	cout<<" (7)  Sum between current time and current input time"<<endl;
+	cout<<" (8)  Sum between current time and new input time"<<endl;
+	cout<<" (9)  Get day week for input date"<<endl;
+	cout<<" (10) Get day week for new input date"<<endl;
+	cout<<" (11) Transfer new input time in seconds"<<endl;
+	cout<<" (12) Transfer new input time in minutes"<<endl;
+	cout<<" (13) Transfer new input time in hours"<<endl;
+	cout<<" (14) Transfer new input seconds in time format"<<endl;
+	cout<<" (15) Transfer new input minutes in time format"<<endl;
+	cout<<" (16) Transfer new input hours in time format"<<endl;
+	cout<<" (17) Convert new input AM to 24H format"<<endl;
+	cout<<" (18) Convert new input PM to 24H format"<<endl;
+	cout<<" (19) Convert new input 24H format to AM format"<<endl;
+	cout<<" (20) Convert new input 24H format to PM format"<<endl;
+	cout<<" (21) Renew current input date and time"<<endl;
+	cout<<" (22) Code author"<<endl;
+	cout<<" (23) Close program"<<endl<<endl;
+	unsigned int option=0;cout<<"Choosen option =";cin>>option;
+	while(option<1 || option>23){
+		cout<<"Number must be 1-23 ! Choose option =";cin>>option;
+	}
+	cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+	return option;
+}
+
+int main(int argc, char** argv) {
+	cout<<endl<<"-----------------Date && Time----------------------------"<<endl<<endl;
+	cout<<"    Input time | Format Hours:Minute:Second"<<endl<<endl;
+	unsigned int currentHour=0;cout<<" Hour=";cin>>currentHour;
+	unsigned int currentMinute=0;cout<<" Minute=";cin>>currentMinute;
+	unsigned int currentSecond=0;cout<<" Second=";cin>>currentSecond;
+	cout<<endl<<"    Input date | Format Day.Month.Hours"<<endl<<endl;
+	unsigned int currentDay=0;cout<<" Day=";cin>>currentDay;
+	unsigned int currentMonth=0;cout<<" Month=";cin>>currentMonth;
+	unsigned int currentYear=0;cout<<" Year=";cin>>currentYear;
+	cout<<endl<<"---------------------------------------------------------"<<endl<<endl;
+	myTime myTimeStruct=myTime(currentSecond,currentMinute,currentHour);
+	myDate myDateStruct=myDate(currentDay,currentMonth,currentYear);
+	cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
+	      /*Current Time :*/currentDateTime();
+	unsigned int choosenOption = chooseOption();
+	system("pause");
 	return 0;
 }
