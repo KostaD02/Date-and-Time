@@ -236,22 +236,22 @@ class myTime{
 	}
 	void setSecond(unsigned int Second){
 		if(Second<1) Second=0;
-		if(Second>59) Second=59;
+		if(Second>=59) Second=59;
 		second=Second;
 	}
 	void setMinute(unsigned int Minute){
 		if(Minute<1) Minute=0;
-		if(Minute>59) Minute=59;
+		if(Minute>=59) Minute=59;
 		minute=Minute;
 	}
 	void setHourDefault(unsigned int Hour){
 		if(Hour<1) Hour=0;
-		if(Hour>12) Hour=11;
+		if(Hour>=12) Hour=11;
 		hour=Hour;
 	}
 	void setHour(unsigned int Hour){
 		if(Hour<1) Hour=0;
-		if(Hour>24) Hour=23;
+		if(Hour>=24) Hour=23;
 		hour=Hour;
 	}
 //	unsigned int checkFormat(bool format,unsigned int Hour){
@@ -342,16 +342,14 @@ unsigned int chooseOption(){
 	cout<<" (13) Transfer current input time in hours"<<endl;
 	cout<<" (14) Transfer new input seconds in time format"<<endl;
 	cout<<" (15) Transfer new input minutes in time format"<<endl;
-	cout<<" (16) Convert current input AM to 24H format"<<endl;
-	cout<<" (17) Convert current input PM to 24H format"<<endl;
-	cout<<" (18) Convert current input 24H format to AM format"<<endl;
-	cout<<" (19) Convert current input 24H format to PM format"<<endl;
-	cout<<" (20) Renew current input date and time"<<endl;
-	cout<<" (21) Code author"<<endl;
-	cout<<" (22) Close program"<<endl<<endl;
+	cout<<" (16) Convert current input 24H to AM/PM format"<<endl;
+	cout<<" (17) Convert new input 24H format to AM/PM format"<<endl;
+	cout<<" (18) Renew current input date and time"<<endl;
+	cout<<" (19) Code author"<<endl;
+	cout<<" (20) Close program"<<endl<<endl;
 	unsigned int option=0;cout<<"Choosen option = ";cin>>option;
-	while(option<1 || option>22){
-		cout<<"Number must be 1-22 ! Choose option =";cin>>option;
+	while(option<1 || option>20){
+		cout<<" Number must be 1-20 ! Choose option =";cin>>option;
 	}
 	decoration(2);
 	return option;
@@ -374,7 +372,7 @@ string week(myDate myDateStruct,unsigned int choose=0){ //Zeller’s Algorithm
 	cout<<" Month= ";cin>>Month;
 	cout<<" Year= ";cin>>Year;
 	}else{
-		return "Unexpected error ,choose was given wrong";
+		return "Unexpected error , choose was given wrong";
 	}
 	string days[7]={"Saturday","Sunday","Monday","Tuesday", "Wednesday","Thursday","Friday"};
 	unsigned int Mon=0;
@@ -402,37 +400,77 @@ unsigned long long int transferTime(myTime myTimeStruct,unsigned int choose){
 	 	Hour=myTimeStruct.getParams(3);
 		return rez=(Hour*3600)+(Minute*60)+Second;
 	}
-	if(choose == 2){
+	else if(choose == 2){
 	 	Second=myTimeStruct.getParams(1);
 		Minute=myTimeStruct.getParams(2);
 	 	Hour=myTimeStruct.getParams(3);		
 		return rez=(Hour*60)+Minute+(Second/60);
 	}
-	if(choose == 3){
+	else if(choose == 3){
 	 	Second=myTimeStruct.getParams(1);
 		Minute=myTimeStruct.getParams(2);
 	 	Hour=myTimeStruct.getParams(3);				
 		return rez=Hour+(Minute/60)+(Second/3600); 
 	}
-	if(choose == 4){
+	else if(choose == 4){
 		decoration(1);
 		cout<<" Choose option was one :"<<endl<<endl<<" Transfer current input seconds in time format"<<endl<<endl;
 		cout<<" Second= ";cin>>Second;cout<<endl;
 		return Second;
 	}
-	if(choose == 5){
+	else if(choose == 5){
 		decoration(1);
 		cout<<" Choose option was one :"<<endl<<endl<<" Transfer current input minute in time format"<<endl<<endl;
 		cout<<" Minute= ";cin>>Minute;cout<<endl;
 		return Minute;
 	}
+	else{
+		cout<<"Unexpected error , choose was given wrong"<<endl;
+		return 1;
+	}
+}
+
+bool checkTime(unsigned int myHour){
+	if(myHour>12) return true; //PM	
+	else return false; //AM
+}
+
+void displayTimeformated(unsigned int second,unsigned int minute,unsigned int hour){
+	if(hour>12){
+		if(hour-12>10) cout<<hour-12<<":";
+		else cout<<"0"<<hour-12<<":";
+	}
+	else if(hour>=12) cout<<hour<<":";
+	else cout<<"0"<<hour<<":";
+	if(minute>=10) cout<<minute<<":";
+	else cout<<"0"<<minute<<":";
+	if(second>=10) cout<<second;
+	else cout<<"0"<<second;
+	if(checkTime(hour)) cout<<" PM"<<endl;
+	else cout<<" AM"<<endl;
+}
+
+void returnChoise();
+void codeAuthor();
+void givingChoises(){
+	cout<<" Do you like to back to menu ?"<<endl<<endl;
+	cout<<" [0] No(program close)"<<endl;
+	cout<<" [1] Yes(back to main menu)"<<endl;
+	cout<<" [2] View code author"<<endl<<endl<<endl;
+	unsigned int option=0;cout<<" Choosen option = ";cin>>option;
+	while(option<0 || option>2){
+		cout<<" Number must be 0-2 ! Choose option = ";cin>>option;
+	}
+	if(option == 1) returnChoise();
+	if(option == 2) codeAuthor();
+	decoration(2);
 }
 
 void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 	switch(option){
 		default:
 			system("cls");
-			cout<<"Unexpected error , Option must be between 1 and 23"<<endl;
+			cout<<endl<<endl<<"Unexpected error , option case doesn't exit"<<endl<<endl;
 			break;
 		case 1:{
 			system("cls");
@@ -443,6 +481,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	        cout<<endl<<" Answer : "<<DifDayDefault.displayStr()<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 2:{
@@ -452,6 +491,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	        cout<<endl<<" Answer : "<<DifDayNew.displayStr()<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 3:{
@@ -463,6 +503,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	        cout<<endl<<" Answer : "<<DifDayDefault.displayStr()<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 4:{
@@ -472,6 +513,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	        cout<<endl<<" Answer : "<<DifDayDefault.displayStr()<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 5:{
@@ -483,6 +525,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	        cout<<endl<<" Answer : "<<SumDayDefault.displayStr()<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 6:{
@@ -492,6 +535,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	        cout<<endl<<" Answer : "<<SumDayNew.displayStr()<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 7:{
@@ -503,6 +547,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	        cout<<endl<<" Answer : "<<SumTimeDefault.displayStr()<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 8:{
@@ -512,6 +557,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	        cout<<endl<<" Answer : "<<SumTimeNew.displayStr()<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 9:{
@@ -522,6 +568,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Day of week will be => "<<week(myDateStruct)<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 10:{
@@ -532,6 +579,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Day of week will be => "<<week(myDateStruct,1)<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 11:{
@@ -542,6 +590,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Answer : "<<transferTime(myTimeStruct,1)<<" Seconds"<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 12:{
@@ -552,6 +601,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Answer : "<<transferTime(myTimeStruct,2)<<" Minute"<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 13:{
@@ -560,6 +610,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Answer : "<<transferTime(myTimeStruct,3)<<" Hour"<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 14:{
@@ -571,6 +622,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Answer : "<<hour<<":"<<(minute%60)<<":"<<(second%60)<<endl;
 			decoration(2);
+			givingChoises();
 			break;
 		}
 		case 15:{
@@ -582,9 +634,118 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Answer : "<<hour<<":"<<(minute%60)<<":"<<(second%60)<<endl;
 			decoration(2);
+			givingChoises();
+			break;
+		}
+		case 16:{ 
+			system("cls");
+			unsigned int hour = myTimeStruct.getParams(3);
+			unsigned int minute = myTimeStruct.getParams(2);
+			unsigned int second = myTimeStruct.getParams(1);
+			myTime DifDayDefault=difTimeDefault(myTimeStruct);
+			decoration(1);
+			cout<<" Choose option was one :"<<endl<<endl<<" Convert current input 24H to AM/PM format"<<endl<<endl;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
+			cout<<endl<<" Answer : ";displayTimeformated(second,minute,hour);
+			cout<<endl<<endl;
+			decoration(2);
+			givingChoises();
+			break;
+		}
+		case 17:{
+			system("cls");
+			decoration(1);
+			cout<<" Choose option was one :"<<endl<<endl<<" Convert new input 24H format to AM/PM format"<<endl<<endl;
+			unsigned int Hour=0;cout<<" Hour= ";cin>>Hour;
+			unsigned int Minute=0;cout<<" Minute= ";cin>>Minute;
+			unsigned int Second=0;cout<<" Second= ";cin>>Second;cout<<endl;
+			currentDateTime();
+			myTime myTimeStructt=myTime(Second,Minute,Hour);
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStructt.displayStr()<<endl<<endl;
+			cout<<endl<<" Answer : ";displayTimeformated(Second,Minute,Hour);
+			cout<<endl<<endl;
+			givingChoises();
+			break;
+		}
+		case 18:{
+			system("cls");
+			returnChoise();
+			break;
+		}
+		case 19:{
+			system("cls");
+			codeAuthor();
+			break;
+		}
+		case 20:{
+			//Program close
 			break;
 		}
 	}
+}
+
+void returnChoise(){
+	decoration(1);
+	cout<<"    Input time | Format Hours:Minute:Second"<<endl<<endl;
+	unsigned int currentHour=0;cout<<" Hour= ";cin>>currentHour;
+	unsigned int currentMinute=0;cout<<" Minute= ";cin>>currentMinute;
+	unsigned int currentSecond=0;cout<<" Second= ";cin>>currentSecond;
+	cout<<endl<<"    Input date | Format Day.Month.Hours"<<endl<<endl;
+	unsigned int currentDay=0;cout<<" Day= ";cin>>currentDay;
+	unsigned int currentMonth=0;cout<<" Month= ";cin>>currentMonth;
+	unsigned int currentYear=0;cout<<" Year= ";cin>>currentYear;
+	decoration(2);
+	myTime myTimeStruct=myTime(currentSecond,currentMinute,currentHour);
+	myDate myDateStruct=myDate(currentDay,currentMonth,currentYear);
+	currentDateTime();
+	cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
+	unsigned int choosenOption = chooseOption();
+	displayOption(choosenOption,myDateStruct,myTimeStruct);	
+}
+
+void codeAuthor(){
+	cout<<"================================================================================="<<endl<<endl;
+	cout<<" Thanks for using my code"<<endl;
+	cout<<endl;
+	cout<<" If u appreciate my work,u can star code on github and follow me ^_^"<<endl;
+	cout<<endl;
+	cout<<" My GitHub : https://github.com/kostad02    | Check also other repositories "<<endl;
+	cout<<endl;
+	cout<<endl;
+	cout<<"((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((("<<endl;
+	cout<<"( /&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"( /&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"( &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"( /&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&/&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&/&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&&&&&&&&&&&&&&&&&&            &&&&&&&&&&&&                &&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&/&&&&&&&&&&&&&&&&   &&&&&(   &&&&&&&&&&    &&&&&&&    &&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&&&&&&&&&&&&&&&&&&   &&&&&(   &&&&&&&#    &&&&&&*    &&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&/&&&&&&&&&&&&&&&&   &&&&&(   &&&&&     &&&&&&    /&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&/&&&&&&&&&&&&&&&&   &&&&&(   &&&    %&&&&&&    &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&&&&&&&&&&&&&&&&&&   &&&&&(   &&&    %&&&     &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&/&&&&&&&&&&&&&&&&   &&&&&(   &&&&& &&&    &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&/&&&&&&&&&&&&&&&&   &&&&&(    &&&&&/    &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&&&&&&&&&&&&&&&&&&   &&&&&&&#    &&&, *&&   &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&/&&&&&&&&&&&&&&&&   &&&&&&&&&%    &&&&&&&    &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&/&&&&&&&&&&&&&&&&   &&&&&&&( &&&    &&&&&&&    &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&&&&&&&&&&&&&&&&&&   &&&&&    ,&&&&    &&&&&&&    &&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&/&&&&&&&&&&&&&&&&   &&(    &&&&&&&&&    &&&&&&&    &&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&&&&&&&&&&&&&&&&&&       ,&&&&&&&&&&&&&    &&&&&&&    &&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&&&&&&&&&&&&&&&&&&     &&&&&&&&&&&&&&&&&&    &&&&&&&    %&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&/&&&&&&&&&&&&&&&&  .&&&&&&&&&&&&&&&&&&&&&&               #&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&...............(&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&%&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"(&/&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"( &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"( /&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
+	cout<<"( /&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&%&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl; 
+	cout<<"( &&    &&&    &&&    &&&    &&&    &&&    &&&    &&&    &&&    &&&    &&&    &"<<endl;
+	cout<<endl<<endl<<"================================================================================="<<endl<<endl; 
 }
 
 int main(int argc, char** argv) {
@@ -604,6 +765,5 @@ int main(int argc, char** argv) {
 	cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	unsigned int choosenOption = chooseOption();
 	displayOption(choosenOption,myDateStruct,myTimeStruct);
-	system("pause");
 	return 0;
 }
