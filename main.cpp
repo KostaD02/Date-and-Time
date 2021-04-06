@@ -326,7 +326,7 @@ myTime sumTimeNew(myTime currentTimeSum){
 }
 unsigned int chooseOption(){
 	decoration(2);
-	cout<<"    Choose option( write only number! ) : "<<endl<<endl;
+	cout<<"    Choose option( write only number! )  "<<endl<<endl;
 	cout<<" (1)  Difference between current day and current input day"<<endl;
 	cout<<" (2)  Difference between current day and new input day"<<endl;
 	cout<<" (3)  Difference between current time and current input time"<<endl;
@@ -340,19 +340,18 @@ unsigned int chooseOption(){
 	cout<<" (11) Transfer current input time in seconds"<<endl;
 	cout<<" (12) Transfer current input time in minutes"<<endl;
 	cout<<" (13) Transfer current input time in hours"<<endl;
-	cout<<" (14) Transfer current input seconds in time format"<<endl;
-	cout<<" (15) Transfer current input minutes in time format"<<endl;
-	cout<<" (16) Transfer current input hours in time format"<<endl;
-	cout<<" (17) Convert current input AM to 24H format"<<endl;
-	cout<<" (18) Convert current input PM to 24H format"<<endl;
-	cout<<" (19) Convert current input 24H format to AM format"<<endl;
-	cout<<" (20) Convert current input 24H format to PM format"<<endl;
-	cout<<" (21) Renew current input date and time"<<endl;
-	cout<<" (22) Code author"<<endl;
-	cout<<" (23) Close program"<<endl<<endl;
+	cout<<" (14) Transfer new input seconds in time format"<<endl;
+	cout<<" (15) Transfer new input minutes in time format"<<endl;
+	cout<<" (16) Convert current input AM to 24H format"<<endl;
+	cout<<" (17) Convert current input PM to 24H format"<<endl;
+	cout<<" (18) Convert current input 24H format to AM format"<<endl;
+	cout<<" (19) Convert current input 24H format to PM format"<<endl;
+	cout<<" (20) Renew current input date and time"<<endl;
+	cout<<" (21) Code author"<<endl;
+	cout<<" (22) Close program"<<endl<<endl;
 	unsigned int option=0;cout<<"Choosen option = ";cin>>option;
-	while(option<1 || option>23){
-		cout<<"Number must be 1-23 ! Choose option =";cin>>option;
+	while(option<1 || option>22){
+		cout<<"Number must be 1-22 ! Choose option =";cin>>option;
 	}
 	decoration(2);
 	return option;
@@ -390,6 +389,43 @@ string week(myDate myDateStruct,unsigned int choose=0){ //Zeller’s Algorithm
 	int w=(Day+floor((13*(Mon+1))/5)+y+floor(y/4)+floor(c/4)+(5*c));
 	w=w%7;
 	return days[w];
+}
+
+unsigned long long int transferTime(myTime myTimeStruct,unsigned int choose){
+	unsigned int rez=0;
+	unsigned int Second=0;
+	unsigned int Minute=0;
+	unsigned int Hour=0;
+	if(choose == 1){
+	 	Second=myTimeStruct.getParams(1);
+		Minute=myTimeStruct.getParams(2);
+	 	Hour=myTimeStruct.getParams(3);
+		return rez=(Hour*3600)+(Minute*60)+Second;
+	}
+	if(choose == 2){
+	 	Second=myTimeStruct.getParams(1);
+		Minute=myTimeStruct.getParams(2);
+	 	Hour=myTimeStruct.getParams(3);		
+		return rez=(Hour*60)+Minute+(Second/60);
+	}
+	if(choose == 3){
+	 	Second=myTimeStruct.getParams(1);
+		Minute=myTimeStruct.getParams(2);
+	 	Hour=myTimeStruct.getParams(3);				
+		return rez=Hour+(Minute/60)+(Second/3600); 
+	}
+	if(choose == 4){
+		decoration(1);
+		cout<<" Choose option was one :"<<endl<<endl<<" Transfer current input seconds in time format"<<endl<<endl;
+		cout<<" Second= ";cin>>Second;cout<<endl;
+		return Second;
+	}
+	if(choose == 5){
+		decoration(1);
+		cout<<" Choose option was one :"<<endl<<endl<<" Transfer current input minute in time format"<<endl<<endl;
+		cout<<" Minute= ";cin>>Minute;cout<<endl;
+		return Minute;
+	}
 }
 
 void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
@@ -495,6 +531,56 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			currentDateTime();
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Day of week will be => "<<week(myDateStruct,1)<<endl;
+			decoration(2);
+			break;
+		}
+		case 11:{
+			system("cls");
+			decoration(1);
+			cout<<" Choose option was one :"<<endl<<endl<<" Transfer current input time in seconds"<<endl<<endl;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
+			cout<<endl<<" Answer : "<<transferTime(myTimeStruct,1)<<" Seconds"<<endl;
+			decoration(2);
+			break;
+		}
+		case 12:{
+			system("cls");
+			decoration(1);
+			cout<<" Choose option was one :"<<endl<<endl<<" Transfer current input time in minutes"<<endl<<endl;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
+			cout<<endl<<" Answer : "<<transferTime(myTimeStruct,2)<<" Minute"<<endl;
+			decoration(2);
+			break;
+		}
+		case 13:{
+			system("cls");
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
+			cout<<endl<<" Answer : "<<transferTime(myTimeStruct,3)<<" Hour"<<endl;
+			decoration(2);
+			break;
+		}
+		case 14:{
+			system("cls");
+			unsigned long long int second = transferTime(myTimeStruct,4);
+			unsigned long long int minute = second/60;
+			unsigned long long int hour = minute/60;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
+			cout<<endl<<" Answer : "<<hour<<":"<<(minute%60)<<":"<<(second%60)<<endl;
+			decoration(2);
+			break;
+		}
+		case 15:{
+			system("cls");
+			unsigned long long int minute = transferTime(myTimeStruct,5);
+			unsigned long long int second = minute*60;
+			unsigned long long int hour = minute/60;
+			currentDateTime();
+			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
+			cout<<endl<<" Answer : "<<hour<<":"<<(minute%60)<<":"<<(second%60)<<endl;
 			decoration(2);
 			break;
 		}
