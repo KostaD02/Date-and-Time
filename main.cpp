@@ -175,7 +175,7 @@ myDate difDayDefault(myDate currentDayDif){
 }
 myDate difDayNew(myDate currentDayDif){
 	decoration(1);
-	cout<<" Choose option was one :"<<endl<<endl<<" Difference between current day and new input day"<<endl<<endl;
+	cout<<" Choose option was second:"<<endl<<endl<<" Difference between current day and new input day"<<endl<<endl;
 	unsigned int Day=0;cout<<" Day= ";cin>>Day;
 	unsigned int Month=0;cout<<" Month= ";cin>>Month;
 	unsigned int Year=0;cout<<" Year= ";cin>>Year;cout<<endl;
@@ -201,7 +201,7 @@ myDate sumDayDefault(myDate currentDaySum){
 }
 myDate sumDayNew(myDate currentDayDif){
 	decoration(1);
-	cout<<" Choose option was one :"<<endl<<endl<<" Difference between current day and new input day"<<endl<<endl;
+	cout<<" Choose option was sixth :"<<endl<<endl<<" Difference between current day and new input day"<<endl<<endl;
 	unsigned int Day=0;cout<<" Day= ";cin>>Day;
 	unsigned int Month=0;cout<<" Month= ";cin>>Month;
 	unsigned int Year=0;cout<<" Year= ";cin>>Year;cout<<endl;
@@ -286,7 +286,7 @@ myTime difTimeDefault(myTime currentTimeDif){
 }
 myTime difTimeNew(myTime currentTimeDif){
 	decoration(1);
-	cout<<" Choose option was one :"<<endl<<endl<<" Difference between current time and new input time"<<endl<<endl;
+	cout<<" Choose option was fourth :"<<endl<<endl<<" Difference between current time and new input time"<<endl<<endl;
 	unsigned int Hour=0;cout<<" Hour= ";cin>>Hour;
 	unsigned int Minute=0;cout<<" Minute= ";cin>>Minute;
 	unsigned int Second=0;cout<<" Second= ";cin>>Second; cout<<endl;
@@ -312,7 +312,7 @@ myTime sumTimeDefault(myTime currentTimeSum){
 }
 myTime sumTimeNew(myTime currentTimeSum){
 	decoration(1);
-	cout<<" Choose option was one :"<<endl<<endl<<" Sum between current time and new input time"<<endl<<endl;
+	cout<<" Choose option was eighth :"<<endl<<endl<<" Sum between current time and new input time"<<endl<<endl;
 	unsigned int Hour=0;cout<<" Hour= ";cin>>Hour;
 	unsigned int Minute=0;cout<<" Minute= ";cin>>Minute;
 	unsigned int Second=0;cout<<" Second= ";cin>>Second;cout<<endl;
@@ -414,13 +414,13 @@ unsigned long long int transferTime(myTime myTimeStruct,unsigned int choose){
 	}
 	else if(choose == 4){
 		decoration(1);
-		cout<<" Choose option was one :"<<endl<<endl<<" Transfer current input seconds in time format"<<endl<<endl;
+		cout<<" Choose option was fourteenth :"<<endl<<endl<<" Transfer current input seconds in time format"<<endl<<endl;
 		cout<<" Second= ";cin>>Second;cout<<endl;
 		return Second;
 	}
 	else if(choose == 5){
 		decoration(1);
-		cout<<" Choose option was one :"<<endl<<endl<<" Transfer current input minute in time format"<<endl<<endl;
+		cout<<" Choose option was fifteenth :"<<endl<<endl<<" Transfer current input minute in time format"<<endl<<endl;
 		cout<<" Minute= ";cin>>Minute;cout<<endl;
 		return Minute;
 	}
@@ -475,7 +475,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 		case 1:{
 			system("cls");
 			decoration(1);
-			cout<<" Choose option was one :"<<endl<<endl<<" Difference between current day and current input day"<<endl<<endl;
+			cout<<" Choose option was first :"<<endl<<endl<<" Difference between current day and current input day"<<endl<<endl;
 			myDate DifDayDefault=difDayDefault(myDateStruct);
 			currentDateTime();
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
@@ -498,7 +498,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			system("cls");
 			myTime DifDayDefault=difTimeDefault(myTimeStruct);
 			decoration(1);
-			cout<<" Choose option was one :"<<endl<<endl<<" Difference between current time and current input time"<<endl<<endl;
+			cout<<" Choose option was third :"<<endl<<endl<<" Difference between current time and current input time"<<endl<<endl;
 			currentDateTime();
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	        cout<<endl<<" Answer : "<<DifDayDefault.displayStr()<<endl;
@@ -520,7 +520,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			system("cls");
 			myDate SumDayDefault=sumDayDefault(myDateStruct);
 			decoration(1);
-			cout<<" Choose option was one :"<<endl<<endl<<" Sum between current day and current input day"<<endl<<endl;
+			cout<<" Choose option was fifth :"<<endl<<endl<<" Sum between current day and current input day"<<endl<<endl;
 			currentDateTime();
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	        cout<<endl<<" Answer : "<<SumDayDefault.displayStr()<<endl;
@@ -542,7 +542,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			system("cls");
 			myTime SumTimeDefault=sumTimeDefault(myTimeStruct);
 			decoration(1);
-			cout<<" Choose option was one :"<<endl<<endl<<" Sum between current time and current input time"<<endl<<endl;
+			cout<<" Choose option was seventh :"<<endl<<endl<<" Sum between current time and current input time"<<endl<<endl;
 			currentDateTime();
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl; 
 	        cout<<endl<<" Answer : "<<SumTimeDefault.displayStr()<<endl;
@@ -563,7 +563,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 		case 9:{
 			system("cls");
 			decoration(1);
-			cout<<" Choose option was one :"<<endl<<endl<<" Get day week for input date"<<endl<<endl;
+			cout<<" Choose option was ninth :"<<endl<<endl<<" Get day week for current input date"<<endl<<endl;
 			currentDateTime();
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Day of week will be => "<<week(myDateStruct)<<endl;
@@ -574,7 +574,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 		case 10:{
 			system("cls");
 			decoration(1);
-			cout<<" Choose option was one :"<<endl<<endl<<" Get day week for new input date"<<endl<<endl;
+			cout<<" Choose option was tenth :"<<endl<<endl<<" Get day week for new input date"<<endl<<endl;
 			currentDateTime();
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Day of week will be => "<<week(myDateStruct,1)<<endl;
@@ -585,7 +585,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 		case 11:{
 			system("cls");
 			decoration(1);
-			cout<<" Choose option was one :"<<endl<<endl<<" Transfer current input time in seconds"<<endl<<endl;
+			cout<<" Choose option was eleventh :"<<endl<<endl<<" Transfer current input time in seconds"<<endl<<endl;
 			currentDateTime();
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Answer : "<<transferTime(myTimeStruct,1)<<" Seconds"<<endl;
@@ -596,7 +596,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 		case 12:{
 			system("cls");
 			decoration(1);
-			cout<<" Choose option was one :"<<endl<<endl<<" Transfer current input time in minutes"<<endl<<endl;
+			cout<<" Choose option was twelfth :"<<endl<<endl<<" Transfer current input time in minutes"<<endl<<endl;
 			currentDateTime();
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Answer : "<<transferTime(myTimeStruct,2)<<" Minute"<<endl;
@@ -606,6 +606,8 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 		}
 		case 13:{
 			system("cls");
+			decoration(1);
+			cout<<" Choose option was thirteenth :"<<endl<<endl<<" Transfer current input time in hours"<<endl<<endl;
 			currentDateTime();
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Answer : "<<transferTime(myTimeStruct,3)<<" Hour"<<endl;
@@ -644,7 +646,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			unsigned int second = myTimeStruct.getParams(1);
 			myTime DifDayDefault=difTimeDefault(myTimeStruct);
 			decoration(1);
-			cout<<" Choose option was one :"<<endl<<endl<<" Convert current input 24H to AM/PM format"<<endl<<endl;
+			cout<<" Choose option was sixteenth :"<<endl<<endl<<" Convert current input 24H to AM/PM format"<<endl<<endl;
 			currentDateTime();
 			cout<<" Current input => \t"<<myDateStruct.displayStr()<<" \t "<<myTimeStruct.displayStr()<<endl;
 			cout<<endl<<" Answer : ";displayTimeformated(second,minute,hour);
@@ -656,7 +658,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 		case 17:{
 			system("cls");
 			decoration(1);
-			cout<<" Choose option was one :"<<endl<<endl<<" Convert new input 24H format to AM/PM format"<<endl<<endl;
+			cout<<" Choose option was seventeenth :"<<endl<<endl<<" Convert new input 24H format to AM/PM format"<<endl<<endl;
 			unsigned int Hour=0;cout<<" Hour= ";cin>>Hour;
 			unsigned int Minute=0;cout<<" Minute= ";cin>>Minute;
 			unsigned int Second=0;cout<<" Second= ";cin>>Second;cout<<endl;
@@ -669,7 +671,6 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 			break;
 		}
 		case 18:{
-			system("cls");
 			returnChoise();
 			break;
 		}
@@ -686,6 +687,7 @@ void displayOption(unsigned int option,myDate myDateStruct,myTime myTimeStruct){
 }
 
 void returnChoise(){
+	system("cls");
 	decoration(1);
 	cout<<"    Input time | Format Hours:Minute:Second"<<endl<<endl;
 	unsigned int currentHour=0;cout<<" Hour= ";cin>>currentHour;
@@ -705,7 +707,10 @@ void returnChoise(){
 }
 
 void codeAuthor(){
-	cout<<"================================================================================="<<endl<<endl;
+	cout<<endl<<"--------------------------------Date && Time--------------------------------------"<<endl<<endl; 
+	cout<<" Choose option was Code Author "<<endl<<endl;
+	currentDateTime();
+	cout<<endl<<endl<<"================================================================================="<<endl<<endl;
 	cout<<" Thanks for using my code"<<endl;
 	cout<<endl;
 	cout<<" If u appreciate my work,u can star code on github and follow me ^_^"<<endl;
