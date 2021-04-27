@@ -355,7 +355,7 @@ unsigned int chooseOption(){
 	return option;
 }
 
-string week(myDate myDateStruct,unsigned int choose=0){ //Zeller’s Algorithm
+string week(myDate myDateStruct,unsigned int choose=0){ //ZellerÂ’s Algorithm
 	if(choose == 1){
 		decoration(1);
 		cout<<" Choose option was one :"<<endl<<endl<<" Difference between current day and current input day"<<endl<<endl;
@@ -759,7 +759,7 @@ int main(int argc, char** argv) {
 	unsigned int currentHour=0;cout<<" Hour= ";cin>>currentHour;
 	unsigned int currentMinute=0;cout<<" Minute= ";cin>>currentMinute;
 	unsigned int currentSecond=0;cout<<" Second= ";cin>>currentSecond;
-	cout<<endl<<"    Input date | Format Day.Month.Hours"<<endl<<endl;
+	cout<<endl<<"    Input date | Format Day.Month.Year"<<endl<<endl;
 	unsigned int currentDay=0;cout<<" Day= ";cin>>currentDay;
 	unsigned int currentMonth=0;cout<<" Month= ";cin>>currentMonth;
 	unsigned int currentYear=0;cout<<" Year= ";cin>>currentYear;
